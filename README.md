@@ -1,18 +1,23 @@
 # Menu-Builder
 A menu tool for GTA:Network
 
----
-
-#### Like the resource?
-
-Donate a few bucks: https://www.paypal.me/stuyk
-
----
+A derivated version of Menu_Builder of Styuk (https://github.com/Stuyk/Menu-Builder-Pure-JS)
 
 ##### USE OF THIS CODE IS STRICTLY FOR THE GTA:NETWORK CLIENT.
 ##### USE OF THE CODE ELSEWHERE IS STRICTLY PROHIBITED.
 
 ---
+
+CHANGELOG :
+
+### Update 0.2
+```
+Add French keyboard Layout;
+Add Language function;
+Add HeaderColor function;
+Add Border function;
+Updated position VerticallyCentered.
+```
 
 ### Brief how to use it:
 ```
