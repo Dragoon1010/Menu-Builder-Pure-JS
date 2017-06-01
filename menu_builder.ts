@@ -1,5 +1,3 @@
-﻿/// <reference path="../../types-gt-mp/index.d.ts" />
-
 var screenX = API.getScreenResolutionMaintainRatio().Width;
 var screenY = API.getScreenResolutionMaintainRatio().Height;
 var panelMinX = Math.round(screenX / 32);
