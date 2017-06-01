@@ -1,10 +1,7 @@
 # Menu-Builder
-A menu tool for GTA:Network
+A menu tool for GT:MP
 
-A derivated version of Menu_Builder of Styuk (https://github.com/Stuyk/Menu-Builder-Pure-JS)
-
-##### USE OF THIS CODE IS STRICTLY FOR THE GTA:NETWORK CLIENT.
-##### USE OF THE CODE ELSEWHERE IS STRICTLY PROHIBITED.
+A derivated version of Menu_Builder of Styuk (https://github.com/Stuyk/Menu-Builder-Pure-JS) for GT:MP
 
 ---
 
