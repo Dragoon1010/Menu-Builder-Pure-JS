@@ -7,6 +7,7 @@ var regPassword: InputPanel;
 var regConfirmPassword: InputPanel;
 
 // Main Menu Login Panel Function
+
 function menuLoginPanel() {
     menu = resource.menu_builder.createMenu(4);
     let panel: Panel;
