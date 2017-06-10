@@ -1,4 +1,4 @@
-# Menu-Builder
+# Menu-Builder-Revamped-Pure-JS
 A menu tool for GT:MP
 
 A derivated version of Menu_Builder of Styuk (https://github.com/Stuyk/Menu-Builder-Pure-JS) for GT:MP
