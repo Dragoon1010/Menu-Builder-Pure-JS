@@ -7,6 +7,15 @@ A derivated version of Menu_Builder of Styuk (https://github.com/Stuyk/Menu-Buil
 
 CHANGELOG :
 
+### Update 0.3
+```
+Add carriage Return on press Enter;
+Add MaxLength variable for input;
+Add 2 type of Input, simple and long;
+Add Font type for input text;
+Add Audio Lib and Audio Name On click input;
+```
+
 ### Update 0.2
 ```
 Add French keyboard Layout;
