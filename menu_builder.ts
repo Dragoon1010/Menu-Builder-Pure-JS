@@ -1,4 +1,4 @@
-var screenX = API.getScreenResolutionMaintainRatio().Width;
+﻿var screenX = API.getScreenResolutionMaintainRatio().Width;
 var screenY = API.getScreenResolutionMaintainRatio().Height;
 var panelMinX = Math.round(screenX / 32);
 var panelMinY = Math.round(screenY / 18);
@@ -11,6 +11,7 @@ var textnotification = null;
 var textnotifications = [];
 var padding = 10;
 var selectedInput: InputPanel = null;
+var carriageReturn = false;
 
 // Menu Properties
 var tabIndex = [];
@@ -1255,6 +1256,9 @@ class InputPanel {
     private _protected: boolean;
     private _hovered: boolean;
     private _selected: boolean;
+    private _maxLength: number;
+    private _isLongText: boolean;
+    private _font: number;
     private _numeric: boolean;
     private _isError: boolean;
     private _isTransparent: boolean;
@@ -1289,6 +1293,9 @@ class InputPanel {
         this._input = "";
         this._hovered = false;
         this._selected = false;
+        this._maxLength = 397;
+        this._isLongText = false;
+        this._font = 4;
         this._numeric = false;
         this._isError = false;
         this._isTransparent = false;
@@ -1331,6 +1338,44 @@ class InputPanel {
 
     get Selected(): boolean {
         return this._selected;
+    }
+
+    /** set audio sound for click effect */
+
+    /* Set audio Library */
+    set AudioLib(value: string) {
+        this._inputAudioLib = value;
+    }
+
+    get AudioLib(): string {
+        return this._inputAudioLib;
+    }
+
+    /* Set audio Name */
+    set AudioName(value: string) {
+        this._inputAudioName = value;
+    }
+
+    get AudioName(): string {
+        return this._inputAudioName;
+    }
+
+    /** Set your font type. 0 - 7 
+    * 0 Normal
+    * 1 Cursive
+    * 2 All Caps
+    * 3 Squares / Arrows / Etc.
+    * 4 Condensed Normal
+    * 5 Garbage
+    * 6 Condensed Normal
+    * 7 Bold GTA Style
+    */
+    set Font(value: number) {
+        this._font = value;
+    }
+
+    get Font(): number {
+        return this._font;
     }
 
     // Hover BACKGROUND PARAMETERS
@@ -1527,6 +1572,24 @@ class InputPanel {
         return this._numeric;
     }
 
+    /** Sets the max length for your text. */
+    set MaxLength(value: number) {
+        this._maxLength = value;
+    }
+
+    get MaxLength(): number {
+        return this._maxLength;
+    }
+
+    /** Sets the textInput if long or not. */
+    set LongText(value: boolean) {
+        this._isLongText = value;
+    }
+
+    get LongText(): boolean {
+        return this._isLongText;
+    }
+
     /**
      *  Sets whether the input should be protected or not. */
     set Protected(value: boolean) {
@@ -1535,6 +1598,7 @@ class InputPanel {
 
     // Draw what we need to draw.
     draw() {
+
         if (this._selected) {
             this.selectedDraw();
         }
@@ -1552,6 +1616,8 @@ class InputPanel {
     }
 
     private normalDraw() {
+
+
         if (this._isError) {
             API.drawRectangle(this._xPos + 10, this._yPos + 10, this._width - 20, this._height - 20, 255, 0, 0, 100);
         } else {
@@ -1561,9 +1627,19 @@ class InputPanel {
             if (this._input.length < 1) {
                 return;
             }
+            if (this._input.length > this._maxLength) {
+                selectedInput.removeFromInput();
+            }
             API.drawText("*".repeat(this._input.length), this._xPos + (this._width / 2), this._yPos + (this._height / 2) - 14, this._inputTextScale, this._inputTextR, this._inputTextG, this._inputTextB, this._inputTextAlpha, 4, 1, false, false, (panelMinX * this._width));
         } else {
-            API.drawText(this._input, this._xPos + (this._width / 2), this._yPos + (this._height / 2) - 14, this._inputTextScale, this._inputTextR, this._inputTextG, this._inputTextB, this._inputTextAlpha, 4, 1, false, false, (panelMinX * this._width));
+            if (this._input.length > this._maxLength) {
+                selectedInput.removeFromInput();
+            }
+            if (this._isLongText == true) {
+                API.drawText(this._input, this._xPos + 15, this._yPos + 10, this._inputTextScale, this._inputTextR, this._inputTextG, this._inputTextB, this._inputTextAlpha, this._font, 0, false, false, this._width - 20);
+            } else {
+                API.drawText(this._input, this._xPos + (this._width / 2), this._yPos + (this._height / 2) - 14, this._inputTextScale, this._inputTextR, this._inputTextG, this._inputTextB, this._inputTextAlpha, this._font, 1, false, false, 10);
+            }
         }
     }
 
@@ -1573,9 +1649,19 @@ class InputPanel {
             if (this._input.length < 1) {
                 return;
             }
+            if (this._input.length > this._maxLength) {
+                selectedInput.removeFromInput();
+            }
             API.drawText("*".repeat(this._input.length), this._xPos + (this._width / 2), this._yPos + (this._height / 2) - 14, this._inputTextScale, this._inputTextR, this._inputTextG, this._inputTextB, this._inputTextAlpha, 4, 1, false, false, (panelMinX * this._width));
         } else {
-            API.drawText(this._input, this._xPos + (this._width / 2), this._yPos + (this._height / 2) - 14, this._inputTextScale, this._inputTextR, this._inputTextG, this._inputTextB, this._inputTextAlpha, 4, 1, false, false, (panelMinX * this._width));
+            if (this._input.length > this._maxLength) {
+                selectedInput.removeFromInput();
+            }
+            if (this._isLongText == true) {
+                API.drawText(this._input, this._xPos + 15, this._yPos + 10, this._inputTextScale, this._inputTextR, this._inputTextG, this._inputTextB, this._inputTextAlpha, this._font, 0, false, false, this._width - 20);
+            } else {
+                API.drawText(this._input, this._xPos + (this._width / 2), this._yPos + (this._height / 2) - 14, this._inputTextScale, this._inputTextR, this._inputTextG, this._inputTextB, this._inputTextAlpha, this._font, 1, false, false, (panelMinX * this._width));
+            }
         }
         return;
     }
@@ -1591,9 +1677,19 @@ class InputPanel {
             if (this._input.length < 1) {
                 return;
             }
+            if (this._input.length > this._maxLength) {
+                selectedInput.removeFromInput();
+            }
             API.drawText("*".repeat(this._input.length), this._xPos + (this._width / 2), this._yPos + (this._height / 2) - 14, this._inputTextScale, this._inputTextR, this._inputTextG, this._inputTextB, this._inputTextAlpha, 4, 1, false, false, (panelMinX * this._width));
         } else {
-            API.drawText(this._input, this._xPos + (this._width / 2), this._yPos + (this._height / 2) - 14, this._inputTextScale, this._inputTextR, this._inputTextG, this._inputTextB, this._inputTextAlpha, 4, 1, false, false, (panelMinX * this._width));
+            if (this._input.length > this._maxLength) {
+                selectedInput.removeFromInput();
+            }
+            if (this._isLongText == true) {
+                API.drawText(this._input, this._xPos + 15, this._yPos + 10, this._inputTextScale, this._inputTextR, this._inputTextG, this._inputTextB, this._inputTextAlpha, this._font, 0, false, false, this._width - 20);
+            } else {
+                API.drawText(this._input, this._xPos + (this._width / 2), this._yPos + (this._height / 2) - 14, this._inputTextScale, this._inputTextR, this._inputTextG, this._inputTextB, this._inputTextAlpha, this._font, 1, false, false, (panelMinX * this._width));
+            }
         }
     }
 
@@ -1633,9 +1729,6 @@ class InputPanel {
     }
 
     addToInput(text: string) {
-        if (this._input.length > 2147483647) {
-            return;
-        }
 
         if (!this._numeric) {
             this._input += text;
@@ -1756,6 +1849,9 @@ API.onKeyDown.connect(function (sender, e) {
 
     if (language == 0) {
         switch (e.KeyCode) {
+            case Keys.Enter:
+                keypress = "\n";
+                break;
             case Keys.Space:
                 keypress = " ";
                 break;
@@ -2053,9 +2149,14 @@ API.onKeyDown.connect(function (sender, e) {
             case Keys.NumPad9:
                 keypress = "9";
                 break;
+            case Keys.Enter:
+                carriageReturn = true;
         }
     } else if (language == 1) {
         switch (e.KeyCode) {
+            case Keys.Enter:
+                keypress = "\n";
+                break;
             case Keys.Space:
                 keypress = " ";
                 break;
